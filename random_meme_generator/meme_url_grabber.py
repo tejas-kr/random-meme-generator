@@ -6,20 +6,25 @@ class Meme:
     soup: BeautifulSoup
     url: str
 
-    def __init__(self, count: int = 1) -> None:
+    def __init__(self, logger: object, count: int = 1) -> None:
         """__init__
 
         Args:
+            logger (object): Logger Object
             count (int, optional): Number of memes to get. Defaults to 1.
         """
-
+        self.logger = logger
         self.url = "https://www.generatormix.com/random-memes?number=%d"%(count)
         proxies = { 
             "http": 'http://34.142.51.21:443'
         }
 
-        web_code = requests.get(self.url, proxies=proxies)
-        self.soup = BeautifulSoup(web_code.content, 'html.parser')
+        try:
+            web_code = requests.get(self.url, proxies=proxies)
+            self.soup = BeautifulSoup(web_code.content, 'html.parser')
+            self.logger.info("Soup Initialized")
+        except Exception as e:
+            self.logger.exception(e)
 
     def get_memes(self):
         """get_memes

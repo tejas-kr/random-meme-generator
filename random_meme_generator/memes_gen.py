@@ -13,9 +13,9 @@ def get_random_memes():
     """
     try: 
         if request.args.get('count') and request.args.get('count').isdigit():
-            memes = Meme(count=int(request.args.get('count'))).get_memes()
+            memes = Meme(logger=current_app.logger, count=int(request.args.get('count'))).get_memes()
         else: 
-            memes = Meme().get_memes()
+            memes = Meme(logger=current_app.logger).get_memes()
         memes_dict = {
             num: {'text': item[0], 'link': item[1]}
             for num, item in enumerate(memes, start=1)
