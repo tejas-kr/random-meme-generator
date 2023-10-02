@@ -14,7 +14,11 @@ class Meme:
         """
 
         self.url = "https://www.generatormix.com/random-memes?number=%d"%(count)
-        web_code = requests.get(self.url)
+        proxies = { 
+            "http": 'http://34.142.51.21:443'
+        }
+
+        web_code = requests.get(self.url, proxies=proxies)
         self.soup = BeautifulSoup(web_code.content, 'html.parser')
 
     def get_memes(self):
