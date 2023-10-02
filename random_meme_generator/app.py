@@ -16,6 +16,12 @@ app.app_context().push()
 from memes_gen import memes_gen
 app.register_blueprint(memes_gen)
 
+@app.route('/', methods=["GET"])
+def index():
+    return {
+        'usage': '/memes?count=<number of memes>'
+    }
+
 @app.route('/health_check', methods=["GET"])
 def health_check():
     app.logger.info('Service is up & running')
